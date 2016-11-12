@@ -2,11 +2,11 @@ angular.module('myApp', ['ui.router'])
 
 .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('signUp', {
-            url: "/signUp",
+        .state('login', {
+            url: "/login",
             templateUrl: 'partials/login.html',
             controller: 'LoginController'
         })
-    $urlRouterProvider.otherwise('/signUp');
+    $urlRouterProvider.otherwise('/login');
 });
  
