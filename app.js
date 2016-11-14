@@ -7,6 +7,10 @@ angular.module('myApp', ['ui.router'])
             templateUrl: 'partials/login.html',
             controller: 'LoginController'
         })
+        .state('library', {
+            url: "/library",
+            templateUrl: 'partials/library.html',
+            controller: 'LibraryController'
+        })
     $urlRouterProvider.otherwise('/login');
 });
- 

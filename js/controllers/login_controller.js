@@ -1,18 +1,18 @@
 angular.module('myApp')
-.controller('LoginController', ['$scope', function($scope){
+.controller('LoginController', ['$scope', '$state', function($scope, $state){
 	$scope.err =false;
 	$scope.user = {
 		'username': '',
 		'password':''
 	};
 	$scope.login = 'Login Page';
-	$scope.onlyU = function() {debugger;
+	$scope.onlyU = function() {//debugger;
 		if(typeof $scope.user.username !== 'undefined') {
 			$scope.user.username.toLowerCase();
 			if($scope.user.username[0] != "u" || $scope.user.username != "admin" ){
 				$scope.err = true;
 			}
-			else 
+			else
 				$scope.err =false;
 		}
 	}
@@ -21,6 +21,7 @@ angular.module('myApp')
 			$scope.user.username.toLowerCase();
 			if($scope.user.username[0] === "u" && $scope.user.password !== "") {
 				alert('user');
+        $state.go('library');
 			}
 			else if($scope.user.username === "admin" && $scope.user.password === "admin") {
 				alert('Librarian');
