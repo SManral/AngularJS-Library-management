@@ -21,7 +21,7 @@ angular.module('myApp')
 			$scope.user.username.toLowerCase();
 			if($scope.user.username[0] === "u" && $scope.user.password !== "") {
 				alert('user');
-    			window.localStorage.setItem($scope.user.username, $scope.user.username); 
+    			//window.localStorage.setItem($scope.user.username, $scope.user.username); 
         $state.go('library');
 			}
 			else if($scope.user.username === "admin" && $scope.user.password === "admin") {

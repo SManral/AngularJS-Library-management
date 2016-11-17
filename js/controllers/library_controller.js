@@ -2,7 +2,6 @@ angular.module('myApp')
 .controller('LibraryController', ['$scope', function($scope){
   //need to figure out how to pass user name to know who checked out which book
 $scope.shelves = ["Literature","Science","Sport","Art"];
-
   function Book(title, shelf, reference, presence) {
     this.title = title;
     this.shelf = shelf;
@@ -11,7 +10,6 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
     this.checkedOut = ""
   }
 
-  //need username
   Book.prototype.checkOutBook = function () {
 
   };
@@ -25,27 +23,33 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
     }
   };
 
-  //test books
-  var book1 = new Book("lit book", "literature", 0, 0);
-  var book11 = new Book("second lit book", "literature", 0, 1);
-  var book2 = new Book("sci book", "science", 0, 1);
-  var book3 = new Book("sport book", "sports", 0, 1);
-  var book4 = new Book("art book", "art", 0, 1);
-
+  
   //shelves test, will probably  need to create object
   var literature = [];
-  literature.push(book1);
-  literature.push(book11);
-
   var science = [];
-  science.push(book2);
-
   var sports = [];
-  sports.push(book3);
+  var art = []
+  var data = localStorage;
 
-  var art = [];
-  art.push(book4);
-
+  //reading books info. from local storage and pushing to the shelves
+  if(data.length > 0) {
+    for (var i = 0; i < localStorage.length; i++) {
+       var book = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        if(book.shelf === 'Literature') {
+          literature.push(book);
+        }
+        else if(book.shelf === 'Science') {
+          science.push(book);
+        }
+        else if(book.shelf === 'Sport') {
+          sports.push(book);
+        }
+        else if(book.shelf === 'Art') {
+          art.push(book);
+        }
+    }      
+    }
+  
   //Change to having library class
   $scope.library = [];
 
@@ -74,45 +78,33 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   
    $scope.addBook = function(book){debugger; 
     var boook = JSON.stringify(book);
-    window.localStorage.setItem(book.title, boook); 
-    //$scope.books[]
+    var i =  window.localStorage.length;
+    window.localStorage.setItem(i++, boook);
     var book1123 = new Book(book.title, book.shelf, book.reference, 1);
     if(book.shelf=="Literature"){
       var len = literature.length;
-      literature.splice(len,0,book1123);
-      //if($scope.library[0].literature==""){
-      $scope.library.splice(len,0,{'literature':book1123});
-    //}
+      literature.splice(len,0,book1123);  
+      $scope.library.push({'literature':book1123});
     }
     else if(book.shelf=="Science"){
       var len = science.length;
-      science.splice(len,0,book1123);
-      //if($scope.library[1].science==""){
-      $scope.library.splice(len,0,{'science':book1123});
-    //}
+      science.splice(len,0,book1123);  
+      $scope.library.push({'science':book1123});
     }
     else if(book.shelf=="Sport"){
       var len = sports.length;
       sports.splice(len,0,book1123);
-      $scope.library.splice(len,0,{'sports':book1123});
+      $scope.library.push({'sports':book1123});
     }
     else if(book.shelf=="Art"){
       var len = art.length;
       art.splice(len,0,book1123);
-      $scope.library.splice(len,0,{'art':book1123});
+      $scope.library.push({'art':book1123});
     }
   }
 
-  //for librarian 
-  // $scope.addBook = function(book) {
-  //   addBook(book);
-  //   if(book.title){
-  //     alert('Book Added successfully');
-  //   }    
-  // }
-
 //Click handler for librarian user
-$scope.onClickL = function(book) {debugger;
+$scope.onClickL = function(book) {
 var ref, prs;
     if(book.title){
       if(book.reference==1){
@@ -126,7 +118,7 @@ var ref, prs;
         prs="Present";
       }
       else{
-        prs="Borrowed"
+        prs="Borrowed";
       }
       alert('Book Name: ' + book.title + "\r\n" +'Book Type: '+ ref + "\r\n"+ 'Book Status: ' + prs + "\r\n"+ 'Borrowed By: ');
     }
