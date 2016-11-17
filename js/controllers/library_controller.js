@@ -25,11 +25,69 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
 
   
   //shelves test, will probably  need to create object
+
+  var book1 = new Book("lit book", "literature", 1, 1);
+  var book2 = new Book("second lit book", "literature", 1, 1);
+  var book3 = new Book("sci book", "science", 1, 1);
+  var book4 = new Book("sport book", "sports", 1, 1);
+  var book5 = new Book("art book", "art", 1, 1);
+  var book6 = new Book("book2", "art", 0, 1);
+  var book7 = new Book("book3", "literature", 0, 1);
+  var book8 = new Book("book4", "science", 0, 1);
+  var book9 = new Book("book5", "literature", 0, 1);
+  var book10 = new Book("book6", "art", 0, 1);
+  var book11 = new Book("book7", "literature", 0, 1);
+  var book12 = new Book("book8", "art", 0, 1);
+  var book13 = new Book("book9", "literature", 0, 1);
+  var book14 = new Book("book10", "art", 0, 1);
+  var book15 = new Book("book11", "literature", 0, 1);
+  var book16 = new Book("book12", "art", 0, 1);
+  var book17 = new Book("book13", "science", 0, 1);
+  var book18 = new Book("book14", "sports", 0, 1);
+  var book19 = new Book("book15", "science", 0, 1);
+  var book20 = new Book("book16", "science", 0, 1);
+  var book21 = new Book("book17", "science", 0, 1);
+  var book22 = new Book("book18", "sports", 0, 1);
+  var book23 = new Book("book19", "sports", 0, 1);
+  var book24 = new Book("book20", "sports", 0, 1);
+  var book25 = new Book("book22", "sports", 0, 1);
+  
+
+
   var literature = [];
+  literature.push(book1);
+  literature.push(book2);
+  literature.push(book7);
+  literature.push(book9);
+  literature.push(book11);
+  literature.push(book13);
+  literature.push(book15);
+
   var science = [];
+  science.push(book3);
+  science.push(book8);
+  science.push(book17);
+  science.push(book19);
+  science.push(book20);
+  science.push(book21);
+
   var sports = [];
+  sports.push(book4);
+  sports.push(book22);
+  sports.push(book23);
+  sports.push(book24);
+  sports.push(book25);
+  sports.push(book18);
+
   var art = []
+  art.push(book5);
+  art.push(book6);
+  art.push(book10);
+  art.push(book12);
+  art.push(book14);
+  art.push(book16);
   var data = localStorage;
+  
 
   //reading books info. from local storage and pushing to the shelves
   if(data.length > 0) {
@@ -76,7 +134,7 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
 
   //utility function to be used for adding books by librarian
   
-   $scope.addBook = function(book){debugger; 
+   $scope.addBook = function(book){
     var boook = JSON.stringify(book);
     var i =  window.localStorage.length;
     window.localStorage.setItem(i++, boook);

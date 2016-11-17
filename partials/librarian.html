@@ -42,16 +42,16 @@ button:disabled {
         <!-- Use ng-show and ng-hide to tell if book is checked out -->
         <!-- Check if the book is preset and it has a title -->
         <td ng-show="shelf.literature.presence || !(shelf.literature.title.length>0)" ng-click="onClickL(shelf.literature)">{{shelf.literature.title}}</td>
-        <td ng-hide="shelf.literature.presence || !(shelf.literature.title.length>0)" style="background-color:blue;" ng-click="onClickL(shelf.literature)">{{shelf.literature.title}}</td>
+        <td ng-hide="shelf.literature.presence || !(shelf.literature.title.length>0)"  ng-click="onClickL(shelf.literature)">{{shelf.literature.title}}</td>
 
         <td ng-show="shelf.science.presence || !(shelf.science.title.length>0)" ng-click="onClickL(shelf.science)">{{shelf.science.title}}</td>
-        <td ng-hide="shelf.science.presence || !(shelf.science.title.length>0)" style="background-color:blue;" ng-click="onClickL(shelf.science)">{{shelf.science.title}}</td>
+        <td ng-hide="shelf.science.presence || !(shelf.science.title.length>0)" ng-click="onClickL(shelf.science)">{{shelf.science.title}}</td>
 
         <td ng-show="shelf.sports.presence || !(shelf.sports.title.length>0)" ng-click="onClickL(shelf.sports)">{{shelf.sports.title}}</td>
-        <td ng-hide="shelf.sports.presence || !(shelf.sports.title.length>0)" style="background-color:blue;" ng-click="onClickL(shelf.sports)">{{shelf.sports.title}}</td>
+        <td ng-hide="shelf.sports.presence || !(shelf.sports.title.length>0)"  ng-click="onClickL(shelf.sports)">{{shelf.sports.title}}</td>
 
         <td ng-show="shelf.art.presence || !(shelf.art.title.length>0)" ng-click="onClickL(shelf.art)">{{shelf.art.title}}</td>
-        <td ng-hide="shelf.art.presence || !(shelf.art.title.length>0)" style="background-color:blue;" ng-click="onClickL(shelf.art)">{{shelf.art.title}}</td>
+        <td ng-hide="shelf.art.presence || !(shelf.art.title.length>0)"  ng-click="onClickL(shelf.art)">{{shelf.art.title}}</td>
       </tr>
     </table><br>
 
