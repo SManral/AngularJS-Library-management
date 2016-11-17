@@ -1,6 +1,8 @@
 angular.module('myApp')
 .controller('LoginController', ['$scope', '$state', function($scope, $state){
 	$scope.err =false;
+
+	//localStorage.clear();
 	$scope.user = {
 		'username': '',
 		'password':''
