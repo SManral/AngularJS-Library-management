@@ -1,7 +1,11 @@
 angular.module('myApp')
 .controller('LibraryController', ['$scope', function($scope){
   //need to figure out how to pass user name to know who checked out which book
-$scope.shelves = ["Literature","Science","Sport","Art"];
+  $scope.shelves = ["Literature","Science","Sport","Art"];
+
+  //Getting user name using local storage
+  var curUser = window.localStorage.getItem("current_user");
+  $scope.user = curUser;
 
   function Book(title, shelf, reference, presence) {
     this.title = title;
@@ -12,12 +16,29 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   }
 
   //need username
-  Book.prototype.checkOutBook = function () {
+  Book.prototype.checkOutBook = function (username) {
+    //check num books user has checked out
+    var userBookCount = 0;
+    for(var i = 0; i < $scope.library.length; i++){
+      //check each book in library to see if user has checked it out and increment counter when true
+      if($scope.library[i].literature.checkedOut == username) { userBookCount++; }
+      if($scope.library[i].science.checkedOut == username) { userBookCount++; }
+      if($scope.library[i].sports.checkedOut == username) { userBookCount++; }
+      if($scope.library[i].art.checkedOut == username) { userBookCount++; }
+    }
+    if (userBookCount >= 2){
+      alert("You have already checked out the maximum (2) number of books");
+      return;
+    }
 
+    if(this.checkedOut == "" && this.presence == 1){
+      this.checkedOut = username;
+      this.presence = 0;
+    }
   };
 
   Book.prototype.returnBook = function () {
-    if(username == this.checkedOut && this.presence == 0){
+    if(curUser == this.checkedOut && this.presence == 0){
       this.checkedOut = "";
       this.presence = 1;
     } else {
@@ -27,7 +48,8 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
 
   //test books
   var book1 = new Book("lit book", "literature", 0, 0);
-  var book11 = new Book("second lit book", "literature", 0, 1);
+  book1.checkedOut = "u100";
+  var book11 = new Book("second lit book", "literature", 1, 1);
   var book2 = new Book("sci book", "science", 0, 1);
   var book3 = new Book("sport book", "sports", 0, 1);
   var book4 = new Book("art book", "art", 0, 1);
@@ -71,10 +93,10 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   }
 
   //utility function to be used for adding books by librarian
-  
-   $scope.addBook = function(book){debugger; 
+
+   $scope.addBook = function(book){debugger;
     var boook = JSON.stringify(book);
-    window.localStorage.setItem(book.title, boook); 
+    window.localStorage.setItem(book.title, boook);
     //$scope.books[]
     var book1123 = new Book(book.title, book.shelf, book.reference, 1);
     if(book.shelf=="Literature"){
@@ -103,12 +125,12 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
     }
   }
 
-  //for librarian 
+  //for librarian
   // $scope.addBook = function(book) {
   //   addBook(book);
   //   if(book.title){
   //     alert('Book Added successfully');
-  //   }    
+  //   }
   // }
 
 //Click handler for librarian user
@@ -134,13 +156,30 @@ var ref, prs;
 
     //Click handler for undergraduate user
   $scope.onClick = function(book) {
-
     if(book.title){
-      alert('clicked: ' + book.title);
+      //check reference
+      if(book.reference == 1){
+        //only display cannot be checked out
+        alert('Book Name: ' + book.title + "\r\n" +"Book Type: reference (cannot be checked out)\r\n");
+        return;
+      }
+
+
       if (book.presence == 1){
-        book.presence = 0;
+
+        if(confirm("Would you like to check out: " + book.title)){
+          book.checkOutBook(curUser);
+        }
       } else {
-        book.presence = 1;
+
+        if(book.checkedOut == curUser){
+          //user can choose whether they want to return book they have checked out
+          if (confirm("Would you like to return " + book.title + "\r\n")){
+            book.returnBook();
+          }
+        } else {
+          alert(book.title + " is checked out by " + book.checkedOut);
+        }
       }
     }
   }
