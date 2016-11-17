@@ -24,8 +24,7 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   };
 
   
-  //shelves test, will probably  need to create object
-
+  //creating new books that will be initially present in library, 
   var book1 = new Book("lit book", "literature", 1, 1);
   var book2 = new Book("second lit book", "literature", 1, 1);
   var book3 = new Book("sci book", "science", 1, 1);
@@ -53,7 +52,7 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   var book25 = new Book("book22", "sports", 0, 1);
   
 
-
+//pushing books to each shelf
   var literature = [];
   literature.push(book1);
   literature.push(book2);
@@ -70,7 +69,7 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   science.push(book19);
   science.push(book20);
   science.push(book21);
-
+  
   var sports = [];
   sports.push(book4);
   sports.push(book22);
@@ -78,7 +77,7 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   sports.push(book24);
   sports.push(book25);
   sports.push(book18);
-
+  
   var art = []
   art.push(book5);
   art.push(book6);
@@ -88,7 +87,6 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   art.push(book16);
   var data = localStorage;
   
-
   //reading books info. from local storage and pushing to the shelves
   if(data.length > 0) {
     for (var i = 0; i < localStorage.length; i++) {
@@ -135,10 +133,28 @@ $scope.shelves = ["Literature","Science","Sport","Art"];
   //utility function to be used for adding books by librarian
   
    $scope.addBook = function(book){
-    var boook = JSON.stringify(book);
-    var i =  window.localStorage.length;
-    window.localStorage.setItem(i++, boook);
+    //adding all pre-added books to local storage
+    for(i=0;i<literature.length;i++){
+   var books = JSON.stringify(literature[i]);
+  window.localStorage.setItem(i+1, books);
+  }
+  for(i=0;i<science.length;i++){
+   var books = JSON.stringify(science[i]);
+  window.localStorage.setItem(literature.length+i+1, books);
+  }
+  for(i=0;i<sports.length;i++){
+   var books = JSON.stringify(sports[i]);
+  window.localStorage.setItem((literature.length+science.length)+(i+1), books);
+  }
+  for(i=0;i<art.length;i++){
+   var books = JSON.stringify(art[i]);
+  window.localStorage.setItem((literature.length+science.length+sports.length)+(i+1), books);
+  }
     var book1123 = new Book(book.title, book.shelf, book.reference, 1);
+    var boook = JSON.stringify(book1123);
+    var i =  window.localStorage.length+1;
+    window.localStorage.setItem(i++, boook);
+    
     if(book.shelf=="Literature"){
       var len = literature.length;
       literature.splice(len,0,book1123);  
