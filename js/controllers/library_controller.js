@@ -250,7 +250,12 @@ angular.module('myApp')
         prs="Borrowed";
         borBy = book.checkedOut;
       }
-      alert('Book Name: ' + book.title + "\r\n" +'Book Type: '+ ref + "\r\n"+ 'Book Status: ' + prs + "\r\n"+ 'Borrowed By: ' + borBy);
+      var bookInfo = 'Book Name: ' + book.title + "\r\n" +'Book Type: '+ ref + "\r\n"+ 'Book Status: ' + prs + "\r\n";
+      if (borBy.length > 0){
+        bookInfo += 'Borrowed By: ' + borBy;
+      }
+
+      alert(bookInfo);
     }
   }
 
